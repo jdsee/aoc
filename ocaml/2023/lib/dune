@@ -1,0 +1,4 @@
+(library
+ (name aoc)
+ ; (preprocess (pps ppx_jane))
+ (libraries core fmt aoc_util))
