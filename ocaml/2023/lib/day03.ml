@@ -6,29 +6,28 @@ let is_symbol = function
   | _ -> false
 ;;
 
-let indices_where line_nr line ~f =
+let indices_where row line ~f =
   String.to_list line
-  |> List.filter_mapi ~f:(fun i c -> if f c then Some (line_nr, i) else None)
+  |> List.filter_mapi ~f:(fun col c -> if f c then Some (row, col) else None)
 ;;
 
 let asterisk_indices = List.concat_mapi ~f:(indices_where ~f:(Char.equal '*'))
 let symbol_indices = List.concat_mapi ~f:(indices_where ~f:is_symbol)
 
 let collect_nums_indexed line =
-  let keep_digits i c = if Char.is_digit c then Some (i, c) else None in
   String.to_list line
-  |> List.filter_mapi ~f:keep_digits
-  |> List.fold ~init:[] ~f:(fun acc (i, digit) ->
-    match acc with
-    | (start, num) :: tl when start + String.length num = i ->
-      (start, num ^ String.of_char digit) :: tl
-    | _ -> (i, String.of_char digit) :: acc)
+  |> List.foldi ~init:[] ~f:(fun col acc c ->
+    match c, acc with
+    | '0' .. '9', (start, num) :: tl when start + String.length num = col ->
+      (start, num ^ String.of_char c) :: tl
+    | '0' .. '9', _ -> (col, String.of_char c) :: acc
+    | _ -> acc)
 ;;
 
-let find_adjacent_nums ref_pos line_nr start num =
+let find_adjacent_nums ref_pos row start num =
   let stop = start + String.length num in
   List.range (start - 1) (stop + 1)
-  |> List.concat_map ~f:(fun i -> [ line_nr - 1, i; line_nr, i; line_nr + 1, i ])
+  |> List.concat_map ~f:(fun col -> [ row - 1, col; row, col; row + 1, col ])
   |> List.filter_map ~f:(fun pos ->
     if Set.mem ref_pos pos then Some (pos, int_of_string num) else None)
 ;;

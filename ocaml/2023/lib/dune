@@ -1,4 +1,4 @@
 (library
  (name aoc)
- ; (preprocess (pps ppx_jane))
+ ; (preprocess (pps ppx_deriving.show ppx_deriving.ord ppx_deriving.sexp))
  (libraries core fmt aoc_util))
