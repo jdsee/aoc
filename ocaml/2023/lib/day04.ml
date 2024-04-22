@@ -1,9 +1,10 @@
 open Core
+module IntSet = Set.Make (Int)
 
 type scratchcard =
   { id : int
-  ; winning : int list
-  ; picked : int list
+  ; winning : IntSet.t
+  ; picked : IntSet.t
   }
 
 let drop_prefix line =
@@ -12,22 +13,20 @@ let drop_prefix line =
 ;;
 
 let to_scratchcard col line =
-  let to_int_list str =
+  let to_int_set str =
     String.split str ~on:' '
-    |> List.filter_map ~f:(function
-      | "" -> None
-      | x -> Int.of_string_opt x)
+    |> List.filter_map ~f:(fun s ->
+      if String.is_empty s then None else Some (Int.of_string s))
+    |> IntSet.of_list
   in
   let split_lists = drop_prefix line |> String.split ~on:'|' in
   match split_lists with
   | [ winning; picked ] ->
-    { id = col + 1; winning = to_int_list winning; picked = to_int_list picked }
+    { id = col + 1; winning = to_int_set winning; picked = to_int_set picked }
   | _ -> invalid_arg "Given input is malformed"
 ;;
 
-let count_wins { winning; picked; _ } =
-  List.count picked ~f:(List.mem winning ~equal:Int.equal)
-;;
+let count_wins { winning; picked; _ } = Set.inter winning picked |> Set.length
 
 let solve_part_one input =
   In_channel.read_lines input
