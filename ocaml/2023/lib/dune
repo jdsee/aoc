@@ -2,4 +2,4 @@
  (name aoc)
  ; (preprocess
   ; (pps ppx_deriving.show))
- (libraries core fmt aoc_util re))
+ (libraries angstrom core fmt aoc_util re))
