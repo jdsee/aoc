@@ -24,3 +24,20 @@ let _merge_adjacent_with lines ~f =
   |> Option.value ~default:[]
   |> List.rev
 ;;
+
+(* TODO: Figure out how to make f generic in it's output *)
+let zip_next_with xs ~f =
+  List.fold xs ~init:([], None) ~f:(fun (acc, prev) curr ->
+    match prev with
+    | Some prev -> f curr prev :: acc, None
+    | None -> acc, Some curr)
+  |> Tuple2.map_fst ~f:List.rev
+;;
+
+let zip_next = zip_next_with ~f:(fun a b -> b, a)
+
+let intersect_intervals (a_start, a_end) (b_start, b_end) =
+  if a_start > b_end || b_start > a_end
+  then None
+  else Some (min a_start b_start, min a_start b_start)
+;;
