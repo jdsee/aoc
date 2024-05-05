@@ -13,11 +13,17 @@ let () =
   (* Fmt.pr "Part II:@."; *)
   (* Day04.solve_part_two "inputs/day_04.test" |> Fmt.pr "  Test - %d@."; *)
   (* Day04.solve_part_two "inputs/day_04" |> Fmt.pr "  Main - %d@."; *)
-  Fmt.pr "@.@.[ DAY 05 ]@.Part I:@.";
+  (* Fmt.pr "@.@.[ DAY 05 ]@.Part I:@."; *)
   (* Day05.solve_part_one "inputs/day_05.test" |> Fmt.pr "  Test - %d@."; *)
   (* Day05.solve_part_one "inputs/day_05" |> Fmt.pr "  Main - %d@."; *)
+  (* Fmt.pr "Part II:@."; *)
+  (* Day05.solve_part_two "inputs/day_05.test" |> Fmt.pr "  Test - %d@."; *)
+  (* Day05.solve_part_two "inputs/day_05" |> Fmt.pr "  Main - %d@."; *)
+  Fmt.pr "@.@.[ DAY 06 ]@.Part I:@.";
+  Day06.solve_part_one "inputs/day_06.test" |> Fmt.pr "  Test - %d@.";
+  Day06.solve_part_one "inputs/day_06" |> Fmt.pr "  Main - %d@.";
   Fmt.pr "Part II:@.";
-  Day05.solve_part_two "inputs/day_05.test" |> Fmt.pr "  Test - %d@.";
-  Day05.solve_part_two "inputs/day_05" |> Fmt.pr "  Main - %d@.";
+  Day06.solve_part_two "inputs/day_06.test" |> Fmt.pr "  Test - %d@.";
+  Day06.solve_part_two "inputs/day_06" |> Fmt.pr "  Main - %d@.";
   ()
 ;;
