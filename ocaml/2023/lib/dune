@@ -1,3 +1,5 @@
 (library
  (name aoc)
+ (preprocess (pps ppx_deriving.show ppx_deriving.ord))
  (libraries angstrom core fmt aoc_util re))
+
