@@ -28,5 +28,8 @@ let () =
   Fmt.pr "@.@.[ DAY 07 ]@.Part I:@.";
   Day07.solve_part_one "inputs/day_07.test" |> Fmt.pr "  Test - %d@.";
   Day07.solve_part_one "inputs/day_07" |> Fmt.pr "  Main - %d@.";
+  Fmt.pr "Part II:@.";
+  Day07.solve_part_two "inputs/day_07.test" |> Fmt.pr "  Test - %d@.";
+  Day07.solve_part_two "inputs/day_07" |> Fmt.pr "  Main - %d@.";
   ()
 ;;
