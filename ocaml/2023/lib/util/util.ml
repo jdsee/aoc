@@ -13,16 +13,11 @@ module Int_tuple = struct
   include Comparator.Make (T)
 end
 
-let _merge_adjacent_with lines ~f =
-  List.fold lines ~init:[] ~f:(fun acc line ->
-    let xs = f line in
-    match acc with
-    | [] -> [ xs; xs ]
-    | curr :: prev :: tl -> xs :: (xs @ curr) :: (xs @ prev) :: tl
-    | _ -> [])
-  |> List.drop_last
-  |> Option.value ~default:[]
-  |> List.rev
+let groupByCount xs ~init =
+  List.fold xs ~init ~f:(fun acc k ->
+    Map.update acc k ~f:(function
+      | None -> 1
+      | Some count -> count + 1))
 ;;
 
 (* TODO: Figure out how to make f generic in it's output *)
